@@ -25,10 +25,10 @@
         <div class="tasks-li">
           {{ task.name }}
         </div>
-        <button @click="editTask(index, task.name)" class="buttonEdit">
+        <button @click="editTask(task.name)" class="buttonEdit">
           <img src="../img/edit.svg" alt="" style="width: 20px" />
         </button>
-        <button @click="removeTask(index)" class="buttonDelete">
+        <button @click="removeTask(task)" class="buttonDelete">
           <img src="../img/trash-alt.svg" alt="" style="width: 20px" />
         </button>
       </li>
@@ -47,12 +47,12 @@ export default {
     Historic,
   },
   watch: {
-    "$store.state.tasks": {
+    "$store.state.tasks.tasks": {
       immediate: true,
       deep: true,
-      handler({tasks}) {
+      handler(task) {
        
-        this.tasks = tasks
+        this.tasks = task.filter((item) => item.status === 'iniciado')
       }
     },
   },
@@ -79,26 +79,25 @@ export default {
     },
 
     // logica para editar a tarefa já adicionada
-    editTask(index, todo) {
+    editTask(todo) {
       this.todo = todo;
-      this.selectedIndex = index;
       this.editingTask = true;
     },
 
-    updateTask() {
+    async updateTask(e) {
       // apagando uma posição e logo em seguida adicioanndo a nova task
-      this.tasks.splice(this.selectedIndex, 1, this.todo);
-      this.editingTask = false;
+      e.preventDefault();
+      await this.$store.dispatch('editTask', this.todo);
 
       // caso a opção editar apareça, e você clique no botão, o input irá apagar, para evitar repetições
-      if (this.updateTask) {
+    
         this.todo = "";
-      }
+        this.editingTask = false;
     },
 
     // removendo tarefa
-    removeTask(index) {
-      this.tasks.splice(index, 1);
+    async removeTask(task) {
+      await this.$store.dispatch('removeTask', task);
     },
   },
 
