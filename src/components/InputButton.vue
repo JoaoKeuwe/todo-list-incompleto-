@@ -51,9 +51,8 @@ export default {
       immediate: true,
       deep: true,
       handler(task) {
-       
-        this.tasks = task.filter((item) => item.status === 'iniciado')
-      }
+        this.tasks = task.filter((item) => item.status === "iniciado");
+      },
     },
   },
   data() {
@@ -67,10 +66,10 @@ export default {
   },
   methods: {
     // logica feita para caso não seja adicionada nenhuma tarefa, não renderize nada ou seja, continue vazio
-   async sendTask(e) {
+    async sendTask(e) {
       e.preventDefault();
       if (this.todo.length > 0) {
-        await this.$store.dispatch('addTasks', this.todo);
+        await this.$store.dispatch("addTasks", this.todo);
         this.todo = "";
       } else {
         // document.getElementById("app").innerText = 'adicione uma tarefa'
@@ -87,24 +86,22 @@ export default {
     async updateTask(e) {
       // apagando uma posição e logo em seguida adicioanndo a nova task
       e.preventDefault();
-      await this.$store.dispatch('editTask', this.todo);
+      await this.$store.dispatch("editTask", this.todo);
 
       // caso a opção editar apareça, e você clique no botão, o input irá apagar, para evitar repetições
-    
-        this.todo = "";
-        this.editingTask = false;
+
+      this.todo = "";
+      this.editingTask = false;
     },
 
     // removendo tarefa
     async removeTask(task) {
-      await this.$store.dispatch('removeTask', task);
+      await this.$store.dispatch("removeTask", task);
     },
   },
 
- async mounted() {
-  
-    const data = this.$store.state.tasks
-
+  async mounted() {
+    const data = this.$store.state.tasks;
   },
 };
 </script>
