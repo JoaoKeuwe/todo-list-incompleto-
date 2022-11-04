@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Header from "../components/Header.vue"
+import Header from "../components/Header.vue";
 export default {
   name: "Historic",
   components: {
@@ -23,15 +23,15 @@ export default {
       immediate: true,
       deep: true,
       handler(task) {
-        this.tasks = task
-      }
+        this.tasks = task;
+      },
     },
   },
   data() {
     return {
       todo: "",
-      tasks: [], 
-     
+      tasks: [],
     };
-  }}
+  },
+};
 </script>
