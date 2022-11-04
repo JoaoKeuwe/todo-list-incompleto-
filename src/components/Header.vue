@@ -41,7 +41,7 @@ ol {
 
 .link-navbar {
   padding: 20px;
-  
+
   text-decoration: none;
   font-size: 35px;
   color: white;
@@ -72,5 +72,4 @@ ol {
 
   /* justify-content: flex-start; */
 }
-
 </style>
